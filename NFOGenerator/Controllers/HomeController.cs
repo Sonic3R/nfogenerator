@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using Services;
+using Services.Model;
+using System.Web.Mvc;
 
 namespace NFOGenerator.Controllers
 {
@@ -7,6 +9,8 @@ namespace NFOGenerator.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            //SteamModel sm = SteamManager.LoadGameById("346110");
+
             return View();
         }
     }

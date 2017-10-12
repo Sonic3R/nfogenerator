@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Services.Model;
 using System;
-using System.Net;
+using System.Net.Http;
 
 namespace Services
 {
@@ -21,14 +21,15 @@ namespace Services
                 throw new ArgumentNullException(nameof(steamId));
             }
 
-            using(WebClient cl = new WebClient())
-            {
-                Uri uri = new Uri(string.Format(API_URL, steamId));
+            Uri uri = new Uri(string.Format(API_URL, steamId));
+            HttpClient cl = new HttpClient();
+            string data = cl.GetStringAsync(uri).Result;
 
-                string data = cl.DownloadStringTaskAsync(uri).Result;
+            string firstElem = string.Format("\"{0}\"", steamId) + ":{";
+            string modifiedData = data.Replace(firstElem, "");
+            modifiedData = modifiedData.Substring(0, modifiedData.Length - 1);
 
-                return JsonConvert.DeserializeObject<SteamModel>(data);
-            }
+            return JsonConvert.DeserializeObject<SteamModel>(modifiedData);
         }
     }
 }
