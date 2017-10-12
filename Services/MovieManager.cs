@@ -2,7 +2,6 @@
 using Services.Model;
 using System;
 using System.Net.Http;
-using System.Linq;
 
 namespace Services
 {
@@ -14,8 +13,6 @@ namespace Services
         private const string MOVIE_URL = "https://api.themoviedb.org/3/movie/{0}?api_key={1}";
         private const string IMAGES_URL = "https://api.themoviedb.org/3/movie/{0}/images?api_key={1}";
         private const string VIDEOS_URL = "https://api.themoviedb.org/3/movie/{0}/videos?api_key={1}";
-
-        private const string STATIC_IMAGE_URL = "https://image.tmdb.org/t/p/original/{0}";
 
         /// <summary>
         /// Load movie data by imdb id
