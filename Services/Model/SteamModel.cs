@@ -92,7 +92,7 @@ namespace Services.Model
         public Screenshot[] Screenshots { get; set; }
 
         [JsonProperty("movies")]
-        public Movie[] Movies { get; set; }
+        public SteamMovie[] Movies { get; set; }
 
         [JsonProperty("recommendations")]
         public Recommendations Recommendations { get; set; }
@@ -278,7 +278,7 @@ namespace Services.Model
         public string Path_full { get; set; }
     }
 
-    public class Movie
+    public class SteamMovie
     {
         [JsonProperty("id")]
         public int Id { get; set; }

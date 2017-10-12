@@ -10,6 +10,7 @@ namespace NFOGenerator.Controllers
         public ActionResult Index()
         {
             //SteamModel sm = SteamManager.LoadGameById("346110");
+            MovieModel movie = MovieManager.LoadMovieByImdbId("tt5301662");
 
             return View();
         }
