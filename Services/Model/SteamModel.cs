@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections;
 
 namespace Services.Model
 {
@@ -55,11 +56,11 @@ namespace Services.Model
         [JsonProperty("pc_requirements")]
         public Pc_Requirements Pc_requirements { get; set; }
 
-        [JsonProperty("mac_requirements")]
+        /*[JsonProperty("mac_requirements")]
         public Pc_Requirements Mac_requirements { get; set; }
 
         [JsonProperty("linux_requirements")]
-        public Pc_Requirements Linux_requirements { get; set; }
+        public Pc_Requirements Linux_requirements { get; set; }*/
 
         [JsonProperty("developers")]
         public string[] Developers { get; set; }

@@ -1,6 +1,9 @@
-﻿using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using NFOGenerator.Helpers;
+using Services;
+using NFOGenerator.Models;
+using Services.Model;
 
 namespace NFOGenerator.Controllers
 {
@@ -16,17 +19,45 @@ namespace NFOGenerator.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(HttpPostedFileBase file)
+        public ActionResult Index(SteamViewModel model)
         {
-            string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), System.IO.Path.GetTempFileName());
-            path = System.IO.Path.ChangeExtension(path, "nfo");
+            string nfo = null;
 
-            file.SaveAs(path);
+            if (model.File != null && model.File.ContentLength > 0)
+            {
+                string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), System.IO.Path.GetTempFileName());
+                path = System.IO.Path.ChangeExtension(path, "nfo");
 
-            string data = System.IO.File.ReadAllText(path);
-                        
+                model.File.SaveAs(path);
 
-            return View();
+                nfo = System.IO.File.ReadAllText(path);
+                System.IO.File.Delete(path);
+            } else if (!string.IsNullOrWhiteSpace(model.Text))
+            {
+                nfo = model.Text;
+            }
+
+            if (string.IsNullOrWhiteSpace(nfo))
+            {
+                ModelState.AddModelError("Error", "Must provide a file or put nfo content in textarea !");
+                return View();
+            }
+
+            string data = nfo.RemoveNonAscii();         
+
+            string steamUrl = SteamManager.ExtractUrlFromString(data)?.TrimEnd('/');
+            if (string.IsNullOrWhiteSpace(steamUrl))
+            {
+                ModelState.AddModelError("Error", "No steam url is found !");
+                return View();
+            }
+
+            var steamId = steamUrl.Split('/').Last();
+            SteamModel sm = SteamManager.LoadGameById(steamId);
+
+            model.Result = sm.Data.Detailed_description;
+
+            return View(model);
         }
     }
 }

@@ -1,18 +1,48 @@
-﻿@{
+﻿@model NFOGenerator.Models.SteamViewModel
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/_LayoutPage.cshtml";
 }
 
-<h2>NFO Generator</h2>
+<div class="container">
 
-<p>Extract imdb or steam url</p>
+    <h2>Game NFO Generator</h2>
 
-<form method="post" enctype="multipart/form-data">
-    <input type="file" name="file" />
-    <input type="submit" value="Extract" />
-</form>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+    {
+        <div class="form-group">
+            @Html.ValidationMessage("Error")
+        </div>
 
-<form>
-    <textarea></textarea>
-    <input type="submit" value="Extract" />
-</form>
+        <div class="form-group">
+            @Html.LabelFor(m => m.File, "Select NFO file", new { @class = "col-sm-2 control-label" })
+
+            <div class="col-sm-10">
+                @Html.TextBoxFor(m => m.File, new { @type = "file", accepts = ".nfo", @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Text, "Or paste here the NFO content", new { @class = "col-sm-2 control-label" })
+
+            <div class="col-sm-10">
+                @Html.TextAreaFor(m => m.Text, new { @class = "form-control", rows = 10 })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Result, "The result: ", new { @class = "col-sm-2 control-label" })
+
+            <div class="col-sm-10">
+                @Html.TextAreaFor(m => m.Result, new { disabled = "disabled", @readonly = "readonly", @class = "form-control", rows = 10 })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="submit" value="Extract" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+</div>
