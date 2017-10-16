@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using NFOGenerator.Helpers;
 
@@ -19,15 +18,15 @@ namespace NFOGenerator.Controllers
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase file)
         {
-            string path = @"U:\test.nfo";
+            string path = System.IO.Path.Combine(System.IO.Path.GetTempPath(), System.IO.Path.GetTempFileName());
+            path = System.IO.Path.ChangeExtension(path, "nfo");
 
             file.SaveAs(path);
 
             string data = System.IO.File.ReadAllText(path);
+                        
 
-            System.IO.File.WriteAllText(path, Regex.Replace(data, @"[^\u0000-\u007F]+", string.Empty));
-
-            return Content(data.RemoveNonAscii());
+            return View();
         }
     }
 }

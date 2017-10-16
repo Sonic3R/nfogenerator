@@ -1,12 +1,18 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/_LayoutPage.cshtml";
 }
 
 <h2>NFO Generator</h2>
 
+<p>Extract imdb or steam url</p>
+
 <form method="post" enctype="multipart/form-data">
     <input type="file" name="file" />
-    <input type="submit" value="done" />
+    <input type="submit" value="Extract" />
+</form>
+
+<form>
+    <textarea></textarea>
+    <input type="submit" value="Extract" />
 </form>

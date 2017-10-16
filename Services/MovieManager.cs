@@ -2,6 +2,7 @@
 using Services.Model;
 using System;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 
 namespace Services
 {
@@ -41,6 +42,32 @@ namespace Services
 
                 return movieModel;
             }
+        }
+
+        /// <summary>
+        /// Extract steam url from string
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string ExtractUrlFromString(string str)
+        {
+            //http://store.steampowered.com/app/686680/Computer_Tycoon/?snr=1_1452_4__103
+
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                throw new ArgumentNullException(nameof(str));
+            }
+
+            string pattern = @"http(s)?:\/\/store\.steampowered\.com/app/(\d+)/";
+            Regex reg = new Regex(pattern);
+
+            Match m = reg.Match(str);
+            if (m.Success)
+            {
+                return m.Value;
+            }
+
+            return null;
         }
 
         /// <summary>

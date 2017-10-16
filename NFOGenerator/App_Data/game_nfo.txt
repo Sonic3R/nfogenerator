@@ -1,0 +1,17 @@
+﻿[center]
+
+-- poster
+
+-- title
+
+-- nfo
+
+-- steam
+
+-- pc requirements
+
+-- screenshots
+
+-- youtube
+
+[/center]
