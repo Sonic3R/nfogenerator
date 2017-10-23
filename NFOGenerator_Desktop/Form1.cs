@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace NFOGenerator_Desktop
 {
@@ -41,14 +42,17 @@ namespace NFOGenerator_Desktop
                     return;
                 }
 
+                string screens = model.Data.Screenshots?.Length == 0 ? string.Empty :
+                    string.Join(" ", model.Data.Screenshots.Select(s => $"[url={s.Path_full.WithoutQueryString()}][img={s.Path_thumbnail.WithoutQueryString()}][/url]"));
+
                 IDictionary<string, string> dict = new Dictionary<string, string>
                 {
-                    { "poster", model.Data.Header_image },
+                    { "poster", model.Data.Header_image.WithoutQueryString() },
                     { "title", model.Data.Name },
                     { "nfo", "" },
-                    { "description", model.Data.Short_description },
-                    { "pc_requirements", model.Data.Pc_requirements.Minimum },
-                    { "screenshots", "" },
+                    { "description", model.Data.Short_description.ToBbcode() },
+                    { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
+                    { "screenshots", screens },
                     { "youtube", "" }
                 };
 

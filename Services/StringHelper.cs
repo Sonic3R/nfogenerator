@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Services
@@ -8,7 +9,9 @@ namespace Services
         private static IDictionary<string, string> _dict = new Dictionary<string, string>
         {
             { @"<strong>(.*?)<\/strong>", "[b]$1[/b]" },
-            { @"<br\s?\/?>", "\r\n" }
+            { @"<br\s?\/?>", "\r\n" },
+            { @"</?ul\s?(.*?)>", "" },
+            { @"<li>(.*?)(\r\n)?</li>", "[*] $1\r\n" },
         };
 
         /// <summary>
@@ -33,7 +36,24 @@ namespace Services
                 return str;
             }
 
-            return string.Empty;
+            string result = str;
+
+            foreach(var kvp in _dict)
+            {
+                result = Regex.Replace(result, kvp.Key, kvp.Value, RegexOptions.Multiline);
+            }
+
+            return result;
+        }
+
+        public static string WithoutQueryString(this string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return str;
+            }
+
+            return new Uri(str).GetLeftPart(UriPartial.Path);
         }
     }
 }
