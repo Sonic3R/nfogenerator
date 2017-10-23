@@ -21,7 +21,10 @@ namespace Services
         /// <returns></returns>
         public static string RemoveNonAscii(this string str)
         {
-            return Regex.Replace(str, @"[^\u0000-\u007F]+", string.Empty);
+            string result = Regex.Replace(str, @"[^\u0000-\u007F]+", string.Empty);
+            result = Regex.Replace(result, "(\r\n){3,}", string.Empty, RegexOptions.Multiline);
+
+            return result;
         }
 
         /// <summary>

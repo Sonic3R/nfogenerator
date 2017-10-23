@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Linq;
+using System.Threading;
 
 namespace NFOGenerator_Desktop
 {
@@ -58,15 +59,22 @@ namespace NFOGenerator_Desktop
 
                 txtResult.Text = TemplateManager.RenderTemplate(dict);
             }
-            catch(TemplateException templEx)
+            catch (TemplateException templEx)
             {
                 MessageBox.Show(templEx.Message);
-            }            
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
                 MessageBox.Show("An error occurred");
             }
+        }
+
+        private void txtNfo_TextChanged(object sender, EventArgs e)
+        {
+            string text = txtNfo.Text;
+
+            txtNfoResult.Text = text.RemoveNonAscii().Trim();
         }
     }
 }
