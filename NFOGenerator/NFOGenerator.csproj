@@ -102,7 +102,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\game_nfo.txt" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -133,7 +132,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Models\SteamViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -150,7 +148,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Helpers\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Services\Services.csproj">
       <Project>{81dac49b-aa8a-4a17-8daa-44d84e779f5c}</Project>

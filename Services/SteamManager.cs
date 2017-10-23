@@ -60,5 +60,24 @@ namespace Services
 
             return null;
         }
+
+        /// <summary>
+        /// Get id from url
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GetId(string url)
+        {
+            string pattern = @"store\.steampowered\.com/app/(\d+)/?";
+            Regex regex = new Regex(pattern);
+
+            Match m = regex.Match(url);
+            if (m.Success)
+            {
+                return m.Groups[1].Value;
+            }
+
+            return null;
+        }
     }
 }

@@ -4,7 +4,9 @@
 
 -- title
 
+[quote=NFO]
 -- nfo
+[/quote]
 
 -- steam
 
