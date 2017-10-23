@@ -8,9 +8,9 @@
 -- nfo
 [/quote]
 
--- steam
+-- description
 
--- pc requirements
+-- pc_requirements
 
 -- screenshots
 

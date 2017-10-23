@@ -1,14 +1,9 @@
 ﻿using Services;
+using Services.Exceptions.Template;
 using Services.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace NFOGenerator_Desktop
@@ -46,8 +41,23 @@ namespace NFOGenerator_Desktop
                     return;
                 }
 
-                txtResult.Text = TemplateManager.GetTemplate();
+                IDictionary<string, string> dict = new Dictionary<string, string>
+                {
+                    { "poster", model.Data.Header_image },
+                    { "title", model.Data.Name },
+                    { "nfo", "" },
+                    { "description", model.Data.Short_description },
+                    { "pc_requirements", model.Data.Pc_requirements.Minimum },
+                    { "screenshots", "" },
+                    { "youtube", "" }
+                };
+
+                txtResult.Text = TemplateManager.RenderTemplate(dict);
             }
+            catch(TemplateException templEx)
+            {
+                MessageBox.Show(templEx.Message);
+            }            
             catch(Exception ex)
             {
                 Debug.WriteLine(ex.Message);

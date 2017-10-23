@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\Template\InvalidParameterInTemplateException.cs" />
+    <Compile Include="Exceptions\Template\MismatchNumberOfParametersException.cs" />
+    <Compile Include="Exceptions\Template\ParameterNotFoundException.cs" />
+    <Compile Include="Exceptions\Template\TemplateException.cs" />
     <Compile Include="Model\Movie\MovieImageModel.cs" />
     <Compile Include="Model\Movie\MovieInfoModel.cs" />
     <Compile Include="Model\MovieModel.cs" />
