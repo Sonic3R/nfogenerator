@@ -46,15 +46,21 @@ namespace NFOGenerator_Desktop
                 string screens = model.Data.Screenshots?.Length == 0 ? string.Empty :
                     string.Join(" ", model.Data.Screenshots.Select(s => $"[url={s.Path_full.WithoutQueryString()}][img={s.Path_thumbnail.WithoutQueryString()}][/url]"));
 
+                string video = YoutubeManager.GetVideoByKeyword(model.Data.Name);
+                if (!string.IsNullOrWhiteSpace(video))
+                {
+                    video = $"[video={video}]";
+                }
+
                 IDictionary<string, string> dict = new Dictionary<string, string>
                 {
-                    { "poster", model.Data.Header_image.WithoutQueryString() },
-                    { "title", model.Data.Name },
+                    { "poster", $"[img={model.Data.Header_image.WithoutQueryString()}]" },
+                    { "title", $"[size=4]model.Data.Name[/size]" },
                     { "nfo", "" },
                     { "description", model.Data.Short_description.ToBbcode() },
                     { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
                     { "screenshots", screens },
-                    { "youtube", "" }
+                    { "youtube", video }
                 };
 
                 txtResult.Text = TemplateManager.RenderTemplate(dict);
