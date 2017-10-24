@@ -12,7 +12,9 @@
 
 -- pc_requirements
 
+[spoiler]
 -- screenshots
+[/spoiler]
 
 -- youtube
 
