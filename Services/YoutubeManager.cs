@@ -18,7 +18,7 @@ namespace Services
             {
                 if (keyword.IndexOf("trailer", StringComparison.InvariantCultureIgnoreCase) == -1)
                 {
-                    return GetVideoByKeyword($"{keyword} gameplay"));
+                    return GetVideoByKeyword($"{keyword} gameplay");
                 }
 
                 return string.Empty;
