@@ -16,8 +16,13 @@ namespace Services
             VideoSearch videoSearch = new VideoSearch();
             List<VideoInformation> result = videoSearch.SearchQuery(keyword, 1);
 
-            if(result.Count == 0)
+            if (result.Count == 0)
             {
+                if (keyword.IndexOf("trailer", StringComparison.InvariantCultureIgnoreCase) == -1)
+                {
+                    return GetVideoByKeyword(keyword.Replace("gameplay", "trailer"));
+                }
+
                 return string.Empty;
             }
 

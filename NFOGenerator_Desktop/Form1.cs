@@ -55,7 +55,7 @@ namespace NFOGenerator_Desktop
                 IDictionary<string, string> dict = new Dictionary<string, string>
                 {
                     { "poster", $"[img={model.Data.Header_image.WithoutQueryString()}]" },
-                    { "title", $"[size=4]model.Data.Name[/size]" },
+                    { "title", $"[size=4]{model.Data.Name}[/size]" },
                     { "nfo", "" },
                     { "description", model.Data.Short_description.ToBbcode() },
                     { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
