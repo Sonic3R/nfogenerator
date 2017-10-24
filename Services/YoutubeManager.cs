@@ -7,13 +7,10 @@ namespace Services
 {
     public static class YoutubeManager
     {
+        private static string[] invalidSystems = new []{ "xbox", "ps4", "ps3", "playstation", "play station" };
+
         public static string GetVideoByKeyword(string keyword)
         {
-            if(keyword.IndexOf("gameplay", StringComparison.InvariantCultureIgnoreCase) == -1)
-            {
-                keyword = $"{keyword} gameplay";
-            }
-
             VideoSearch videoSearch = new VideoSearch();
             List<VideoInformation> result = videoSearch.SearchQuery(keyword, 1);
 
@@ -21,13 +18,19 @@ namespace Services
             {
                 if (keyword.IndexOf("trailer", StringComparison.InvariantCultureIgnoreCase) == -1)
                 {
-                    return GetVideoByKeyword(keyword.Replace("gameplay", "trailer"));
+                    return GetVideoByKeyword($"{keyword} gameplay"));
                 }
 
                 return string.Empty;
             }
 
-            return result.FirstOrDefault(s => s.Title.IndexOf("trailer", StringComparison.InvariantCultureIgnoreCase) > -1 || s.Title.IndexOf("gameplay", StringComparison.InvariantCultureIgnoreCase) > -1)?.Url;
+            Func<VideoInformation, bool> filterVideoTitle = (v) =>
+            {
+                return v.Title.IndexOf("trailer", StringComparison.InvariantCultureIgnoreCase) > -1 || v.Title.IndexOf("gameplay", StringComparison.InvariantCultureIgnoreCase) > -1
+                && !invalidSystems.Contains(v.Title.ToLowerInvariant());
+            };
+
+            return result.FirstOrDefault(filterVideoTitle)?.Url;
         }
     }
 }
