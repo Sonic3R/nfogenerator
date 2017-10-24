@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using YoutubeSearch;
+using System.Linq;
 
 namespace Services
 {
@@ -26,7 +27,7 @@ namespace Services
                 return string.Empty;
             }
 
-            return result[0].Url;
+            return result.FirstOrDefault(s => s.Title.IndexOf("trailer", StringComparison.InvariantCultureIgnoreCase) > -1 || s.Title.IndexOf("gameplay", StringComparison.InvariantCultureIgnoreCase) > -1)?.Url;
         }
     }
 }
