@@ -82,5 +82,54 @@ namespace NFOGenerator_Desktop
 
             txtNfoResult.Text = text.RemoveNonAscii().Trim();
         }
+
+        private void musicBtn_Click(object sender, EventArgs e)
+        {
+            txtResult.Text = MusicManager.Load();
+        }
+
+        private void radioNfoStripper_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void radioDisplayMusicData_CheckedChanged(object sender, EventArgs e)
+        {
+            string items = MusicManager.Load();
+            LoadData(items, string.Empty);
+        }
+
+        private void dgvFolders_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DgvModel data = dgvFolders?.CurrentRow.DataBoundItem as DgvModel;
+            if(data != null)
+            {
+                string items = MusicManager.Load(data.Path);
+                LoadData(items, data.Path);
+            }
+        }
+
+        private void LoadData(string items, string prevPath)
+        {
+            dgvFolders.DataBindings.Clear();
+
+            if (!string.IsNullOrWhiteSpace(items))
+            {
+                List<DgvModel> model = new List<DgvModel>();
+
+                string[] split = items.Split(new char[] { '\r', '\n' });
+                foreach (string item in split)
+                {
+                    if (string.IsNullOrWhiteSpace(item))
+                    {
+                        continue;
+                    }
+
+                    model.Add(new DgvModel { Path = prevPath.TrimEnd('/') + "/" + item, Title = item });
+                }
+
+                dgvFolders.DataSource = model;
+            }
+        }
     }
 }
