@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Linq;
 using System.Threading;
+using System.IO;
 
 namespace NFOGenerator_Desktop
 {
@@ -88,17 +89,6 @@ namespace NFOGenerator_Desktop
             txtResult.Text = MusicManager.Load();
         }
 
-        private void radioNfoStripper_CheckedChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void radioDisplayMusicData_CheckedChanged(object sender, EventArgs e)
-        {
-            string items = MusicManager.Load();
-            LoadData(items, string.Empty);
-        }
-
         private void dgvFolders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DgvModel data = dgvFolders?.CurrentRow.DataBoundItem as DgvModel;
@@ -115,21 +105,56 @@ namespace NFOGenerator_Desktop
 
             if (!string.IsNullOrWhiteSpace(items))
             {
-                List<DgvModel> model = new List<DgvModel>();
-
-                string[] split = items.Split(new char[] { '\r', '\n' });
-                foreach (string item in split)
-                {
-                    if (string.IsNullOrWhiteSpace(item))
-                    {
-                        continue;
-                    }
-
-                    model.Add(new DgvModel { Path = prevPath.TrimEnd('/') + "/" + item, Title = item });
-                }
-
-                dgvFolders.DataSource = model;
+                dgvFolders.DataSource = ToModel(items, prevPath);
             }
         }
+
+        private void btnDownload_Click(object sender, EventArgs e)
+        {
+            DgvModel data = dgvFolders?.CurrentRow.DataBoundItem as DgvModel;
+            const string extension = "nfo";
+
+            if (data != null)
+            {
+                string items = MusicManager.Load(data.Path);
+                if (!string.IsNullOrWhiteSpace(items))
+                {
+                    List<DgvModel> modelList = ToModel(items, data.Path);
+                    foreach(DgvModel model in modelList)
+                    {
+                        if(Path.GetExtension(model.Path).TrimStart('.').Equals(extension, StringComparison.OrdinalIgnoreCase))
+                        {
+                            MusicManager.DownloadFile(model.Path);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        private void radioDisplayMusicData_CheckedChanged(object sender, EventArgs e)
+        {
+            string items = MusicManager.Load();
+            LoadData(items, string.Empty);
+        }
+
+        private List<DgvModel> ToModel(string items, string prevPath)
+        {
+            List<DgvModel> model = new List<DgvModel>();
+
+            string[] split = items.Split(new char[] { '\r', '\n' });
+            foreach (string item in split)
+            {
+                if (string.IsNullOrWhiteSpace(item))
+                {
+                    continue;
+                }
+
+                model.Add(new DgvModel { Path = prevPath.TrimEnd('/') + "/" + item, Title = item });
+            }
+
+            return model;
+        }
+        
     }
 }
