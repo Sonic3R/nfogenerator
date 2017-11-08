@@ -111,22 +111,29 @@ namespace NFOGenerator_Desktop
 
         private void btnDownload_Click(object sender, EventArgs e)
         {
-            DgvModel data = dgvFolders?.CurrentRow.DataBoundItem as DgvModel;
-            const string extension = "nfo";
-
-            if (data != null)
+            var selectedRows = dgvFolders.SelectedRows;
+            if(selectedRows.Count > 0)
             {
-                string items = MusicManager.Load(data.Path);
-                if (!string.IsNullOrWhiteSpace(items))
+                foreach (DataGridViewRow row in selectedRows)
                 {
-                    List<DgvModel> modelList = ToModel(items, data.Path);
-                    foreach(DgvModel model in modelList)
-                    {
-                        if(Path.GetExtension(model.Path).TrimStart('.').Equals(extension, StringComparison.OrdinalIgnoreCase))
-                        {
-                            MusicManager.DownloadFile(model.Path);
-                        }
+                    DgvModel data = row.DataBoundItem as DgvModel;
+                    const string extension = "nfo";
 
+                    if (data != null)
+                    {
+                        string items = MusicManager.Load(data.Path);
+                        if (!string.IsNullOrWhiteSpace(items))
+                        {
+                            List<DgvModel> modelList = ToModel(items, data.Path);
+                            foreach (DgvModel model in modelList)
+                            {
+                                if (Path.GetExtension(model.Path).TrimStart('.').Equals(extension, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    MusicManager.DownloadFile(model.Path, @"C:\Users\mteodorescu\Downloads\pics\");
+                                }
+
+                            }
+                        }
                     }
                 }
             }
@@ -155,6 +162,24 @@ namespace NFOGenerator_Desktop
 
             return model;
         }
-        
+
+        /// <summary>
+        /// select once time the cell
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgvFolders_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+            dgvFolders.Rows[e.RowIndex].Selected = true;
+        }
+
+        private void dgvFolders_SelectionChanged(object sender, EventArgs e)
+        {
+            DataGridViewSelectedCellCollection cells = dgvFolders.SelectedCells;
+            foreach(DataGridViewCell cell in cells)
+            {
+                dgvFolders.Rows[cell.RowIndex].Selected = true;
+            }
+        }
     }
 }

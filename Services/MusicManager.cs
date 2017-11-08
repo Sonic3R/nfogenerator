@@ -48,7 +48,7 @@ namespace Services
             }
         }
 
-        public static void DownloadFile(string path)
+        public static void DownloadFile(string path, string downloadLocation)
         {
             FtpWebResponse response = GetResponseFromFtp(path, WebRequestMethods.Ftp.DownloadFile);
 
@@ -58,7 +58,7 @@ namespace Services
             try
             {
                 responseStream = response.GetResponseStream();
-                fileStream = File.Create(@"D:\Downloads\" + Path.GetFileName(path));
+                fileStream = File.Create(downloadLocation.TrimEnd('\\') + @"\" + Path.GetFileName(path));
 
                 if (fileStream != null)
                 {

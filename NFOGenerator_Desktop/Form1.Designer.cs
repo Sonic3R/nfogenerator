@@ -50,28 +50,27 @@
             // 
             // txtSteamUrl
             // 
-            this.txtSteamUrl.Location = new System.Drawing.Point(106, 10);
-            this.txtSteamUrl.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSteamUrl.Location = new System.Drawing.Point(141, 12);
+            this.txtSteamUrl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtSteamUrl.Name = "txtSteamUrl";
-            this.txtSteamUrl.Size = new System.Drawing.Size(371, 20);
+            this.txtSteamUrl.Size = new System.Drawing.Size(493, 22);
             this.txtSteamUrl.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 10);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(36, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
+            this.label1.Size = new System.Drawing.Size(68, 17);
             this.label1.TabIndex = 1;
             this.label1.Text = "Steam url";
             // 
             // btnGetData
             // 
-            this.btnGetData.Location = new System.Drawing.Point(481, 9);
-            this.btnGetData.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGetData.Location = new System.Drawing.Point(641, 11);
+            this.btnGetData.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnGetData.Name = "btnGetData";
-            this.btnGetData.Size = new System.Drawing.Size(56, 19);
+            this.btnGetData.Size = new System.Drawing.Size(75, 23);
             this.btnGetData.TabIndex = 2;
             this.btnGetData.Text = "Get data";
             this.btnGetData.UseVisualStyleBackColor = true;
@@ -79,21 +78,21 @@
             // 
             // txtResult
             // 
-            this.txtResult.Location = new System.Drawing.Point(29, 45);
-            this.txtResult.Margin = new System.Windows.Forms.Padding(2);
+            this.txtResult.Location = new System.Drawing.Point(39, 55);
+            this.txtResult.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
             this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtResult.Size = new System.Drawing.Size(509, 475);
+            this.txtResult.Size = new System.Drawing.Size(677, 584);
             this.txtResult.TabIndex = 3;
             // 
             // musicBtn
             // 
-            this.musicBtn.Location = new System.Drawing.Point(29, 546);
-            this.musicBtn.Margin = new System.Windows.Forms.Padding(2);
+            this.musicBtn.Location = new System.Drawing.Point(39, 672);
+            this.musicBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.musicBtn.Name = "musicBtn";
-            this.musicBtn.Size = new System.Drawing.Size(164, 36);
+            this.musicBtn.Size = new System.Drawing.Size(219, 44);
             this.musicBtn.TabIndex = 7;
             this.musicBtn.Text = "Get music details";
             this.musicBtn.UseVisualStyleBackColor = true;
@@ -103,10 +102,10 @@
             // 
             this.radioNfoStripper.AutoSize = true;
             this.radioNfoStripper.Checked = true;
-            this.radioNfoStripper.Location = new System.Drawing.Point(589, 11);
-            this.radioNfoStripper.Margin = new System.Windows.Forms.Padding(2);
+            this.radioNfoStripper.Location = new System.Drawing.Point(785, 14);
+            this.radioNfoStripper.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioNfoStripper.Name = "radioNfoStripper";
-            this.radioNfoStripper.Size = new System.Drawing.Size(121, 17);
+            this.radioNfoStripper.Size = new System.Drawing.Size(160, 21);
             this.radioNfoStripper.TabIndex = 8;
             this.radioNfoStripper.TabStop = true;
             this.radioNfoStripper.Text = "Display NFO stripper";
@@ -114,45 +113,44 @@
             // 
             // txtNfoResult
             // 
-            this.txtNfoResult.Location = new System.Drawing.Point(589, 326);
-            this.txtNfoResult.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNfoResult.Location = new System.Drawing.Point(785, 401);
+            this.txtNfoResult.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNfoResult.Multiline = true;
             this.txtNfoResult.Name = "txtNfoResult";
             this.txtNfoResult.ReadOnly = true;
             this.txtNfoResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtNfoResult.Size = new System.Drawing.Size(311, 257);
+            this.txtNfoResult.Size = new System.Drawing.Size(413, 315);
             this.txtNfoResult.TabIndex = 8;
             // 
             // txtNfo
             // 
-            this.txtNfo.Location = new System.Drawing.Point(589, 45);
-            this.txtNfo.Margin = new System.Windows.Forms.Padding(2);
+            this.txtNfo.Location = new System.Drawing.Point(785, 55);
+            this.txtNfo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtNfo.Multiline = true;
             this.txtNfo.Name = "txtNfo";
             this.txtNfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtNfo.Size = new System.Drawing.Size(311, 258);
+            this.txtNfo.Size = new System.Drawing.Size(413, 317);
             this.txtNfo.TabIndex = 7;
             // 
             // radioDisplayMusicData
             // 
             this.radioDisplayMusicData.AutoSize = true;
-            this.radioDisplayMusicData.Location = new System.Drawing.Point(941, 6);
-            this.radioDisplayMusicData.Margin = new System.Windows.Forms.Padding(2);
+            this.radioDisplayMusicData.Location = new System.Drawing.Point(1255, 7);
+            this.radioDisplayMusicData.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioDisplayMusicData.Name = "radioDisplayMusicData";
-            this.radioDisplayMusicData.Size = new System.Drawing.Size(112, 17);
+            this.radioDisplayMusicData.Size = new System.Drawing.Size(136, 21);
             this.radioDisplayMusicData.TabIndex = 10;
             this.radioDisplayMusicData.TabStop = true;
-            this.radioDisplayMusicData.Text = "Display music stuff";
+            this.radioDisplayMusicData.Text = "Display FTP stuff";
             this.radioDisplayMusicData.UseVisualStyleBackColor = true;
             this.radioDisplayMusicData.CheckedChanged += new System.EventHandler(this.radioDisplayMusicData_CheckedChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(586, 28);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(781, 34);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(197, 13);
+            this.label2.Size = new System.Drawing.Size(265, 17);
             this.label2.TabIndex = 5;
             this.label2.Text = "Paste here the entire NFO to be stripped";
             // 
@@ -166,20 +164,23 @@
             this.pathDataGridViewTextBoxColumn,
             this.titleDataGridViewTextBoxColumn});
             this.dgvFolders.DataSource = this.dgvModelBindingSource;
-            this.dgvFolders.Location = new System.Drawing.Point(941, 28);
-            this.dgvFolders.Margin = new System.Windows.Forms.Padding(2);
+            this.dgvFolders.Location = new System.Drawing.Point(1255, 34);
+            this.dgvFolders.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dgvFolders.Name = "dgvFolders";
             this.dgvFolders.ReadOnly = true;
             this.dgvFolders.RowTemplate.Height = 24;
-            this.dgvFolders.Size = new System.Drawing.Size(386, 492);
+            this.dgvFolders.Size = new System.Drawing.Size(515, 606);
             this.dgvFolders.TabIndex = 12;
+            this.dgvFolders.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFolders_CellContentClick_1);
             this.dgvFolders.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFolders_CellContentClick);
+            this.dgvFolders.SelectionChanged += new System.EventHandler(this.dgvFolders_SelectionChanged);
             // 
             // btnDownload
             // 
-            this.btnDownload.Location = new System.Drawing.Point(941, 537);
+            this.btnDownload.Location = new System.Drawing.Point(1255, 661);
+            this.btnDownload.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(383, 46);
+            this.btnDownload.Size = new System.Drawing.Size(511, 57);
             this.btnDownload.TabIndex = 13;
             this.btnDownload.Text = "Download nfo from selected folder";
             this.btnDownload.UseVisualStyleBackColor = true;
@@ -207,9 +208,9 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1336, 592);
+            this.ClientSize = new System.Drawing.Size(1781, 729);
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.dgvFolders);
             this.Controls.Add(this.label2);
@@ -222,7 +223,7 @@
             this.Controls.Add(this.btnGetData);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtSteamUrl);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Helper";
             ((System.ComponentModel.ISupportInitialize)(this.dgvFolders)).EndInit();
