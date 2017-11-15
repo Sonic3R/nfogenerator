@@ -8,6 +8,9 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Threading;
 using System.IO;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
+using System.Configuration;
 
 namespace NFOGenerator_Desktop
 {
@@ -57,7 +60,7 @@ namespace NFOGenerator_Desktop
                 {
                     { "poster", $"[img={model.Data.Header_image.WithoutQueryString()}]" },
                     { "title", $"[size=4]{model.Data.Name}[/size]" },
-                    { "nfo", "" },
+                    { "genre", $"[size=2]Genre: [color=orange]{string.Join(", ", model.Data.Genres.Select(g=>g.Description))}[/color][/size]"},
                     { "description", model.Data.Short_description.ToBbcode() },
                     { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
                     { "screenshots", screens },
@@ -92,7 +95,7 @@ namespace NFOGenerator_Desktop
         private void dgvFolders_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DgvModel data = dgvFolders?.CurrentRow.DataBoundItem as DgvModel;
-            if(data != null)
+            if (data != null)
             {
                 string items = MusicManager.Load(data.Path);
                 LoadData(items, data.Path);
@@ -112,7 +115,7 @@ namespace NFOGenerator_Desktop
         private void btnDownload_Click(object sender, EventArgs e)
         {
             var selectedRows = dgvFolders.SelectedRows;
-            if(selectedRows.Count > 0)
+            if (selectedRows.Count > 0)
             {
                 foreach (DataGridViewRow row in selectedRows)
                 {
@@ -176,9 +179,22 @@ namespace NFOGenerator_Desktop
         private void dgvFolders_SelectionChanged(object sender, EventArgs e)
         {
             DataGridViewSelectedCellCollection cells = dgvFolders.SelectedCells;
-            foreach(DataGridViewCell cell in cells)
+            foreach (DataGridViewCell cell in cells)
             {
                 dgvFolders.Rows[cell.RowIndex].Selected = true;
+            }
+        }
+
+        private void testIt_Click(object sender, EventArgs e)
+        {
+            using (IWebDriver driver = new ChromeDriver())
+            {
+                driver.Navigate().GoToUrl("https://filelist.ro/login.php");
+                driver.FindElement(By.Id("username")).SendKeys("Megatron4FL");
+
+                string password = Crypto.DecryptStringAES(ConfigurationManager.AppSettings["flPassword"], ConfigurationManager.AppSettings["encryptPassword"]);
+                driver.FindElement(By.Id("password")).SendKeys(password);
+                driver.FindElement(By.Id("password")).SendKeys(OpenQA.Selenium.Keys.Enter);
             }
         }
     }

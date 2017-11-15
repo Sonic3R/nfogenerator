@@ -3,10 +3,7 @@
 -- poster
 
 -- title
-
-[quote=NFO]
--- nfo
-[/quote]
+-- genre
 
 -- description
 

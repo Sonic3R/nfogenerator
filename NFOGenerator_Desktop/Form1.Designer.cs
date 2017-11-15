@@ -41,6 +41,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dgvFolders = new System.Windows.Forms.DataGridView();
             this.btnDownload = new System.Windows.Forms.Button();
+            this.testIt = new System.Windows.Forms.Button();
             this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -178,13 +179,23 @@
             // btnDownload
             // 
             this.btnDownload.Location = new System.Drawing.Point(1255, 661);
-            this.btnDownload.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDownload.Margin = new System.Windows.Forms.Padding(4);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(511, 57);
             this.btnDownload.TabIndex = 13;
             this.btnDownload.Text = "Download nfo from selected folder";
             this.btnDownload.UseVisualStyleBackColor = true;
             this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            // 
+            // testIt
+            // 
+            this.testIt.Location = new System.Drawing.Point(286, 674);
+            this.testIt.Name = "testIt";
+            this.testIt.Size = new System.Drawing.Size(120, 44);
+            this.testIt.TabIndex = 14;
+            this.testIt.Text = "Launch to FL";
+            this.testIt.UseVisualStyleBackColor = true;
+            this.testIt.Click += new System.EventHandler(this.testIt_Click);
             // 
             // pathDataGridViewTextBoxColumn
             // 
@@ -211,6 +222,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1781, 729);
+            this.Controls.Add(this.testIt);
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.dgvFolders);
             this.Controls.Add(this.label2);
@@ -250,6 +262,7 @@
         private System.Windows.Forms.Button btnDownload;
         private System.Windows.Forms.DataGridViewTextBoxColumn pathDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button testIt;
     }
 }
 

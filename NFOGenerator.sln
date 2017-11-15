@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Servic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NFOGenerator_Desktop", "NFOGenerator_Desktop\NFOGenerator_Desktop.csproj", "{0362589E-3C86-4E71-BC70-6577EE118932}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomationUI", "AutomationUI\AutomationUI.csproj", "{AAC5105F-FBF6-4BD9-BC8C-465E7B48E020}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{0362589E-3C86-4E71-BC70-6577EE118932}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0362589E-3C86-4E71-BC70-6577EE118932}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0362589E-3C86-4E71-BC70-6577EE118932}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAC5105F-FBF6-4BD9-BC8C-465E7B48E020}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAC5105F-FBF6-4BD9-BC8C-465E7B48E020}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAC5105F-FBF6-4BD9-BC8C-465E7B48E020}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAC5105F-FBF6-4BD9-BC8C-465E7B48E020}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

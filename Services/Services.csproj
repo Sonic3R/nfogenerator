@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crypto.cs" />
     <Compile Include="Exceptions\Template\InvalidParameterInTemplateException.cs" />
     <Compile Include="Exceptions\Template\MismatchNumberOfParametersException.cs" />
     <Compile Include="Exceptions\Template\ParameterNotFoundException.cs" />
