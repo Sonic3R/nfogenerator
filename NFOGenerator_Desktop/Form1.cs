@@ -125,7 +125,7 @@ namespace NFOGenerator_Desktop
                     _driver.FindElement(By.Name("descr")).SendKeys(txtResult.Text);
 
                     _driver.FindElement(By.Name("epenis")).SendKeys(user);
-                    _driver.FindElement(By.Name("epenis")).SendKeys(OpenQA.Selenium.Keys.Enter);
+                    //_driver.FindElement(By.Name("epenis")).SendKeys(OpenQA.Selenium.Keys.Enter);
                 }
             }
         }
