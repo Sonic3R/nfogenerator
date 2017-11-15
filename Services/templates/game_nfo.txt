@@ -4,6 +4,7 @@
 
 -- title
 -- genre
+-- url
 
 -- description
 

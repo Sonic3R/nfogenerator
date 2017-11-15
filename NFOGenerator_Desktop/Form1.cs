@@ -64,7 +64,8 @@ namespace NFOGenerator_Desktop
                     { "description", model.Data.Short_description.ToBbcode() },
                     { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
                     { "screenshots", screens },
-                    { "youtube", video }
+                    { "youtube", video },
+                    { "url", $"http://store.steampowered.com/app/{model.Data.Steam_appid}/" }
                 };
 
                 txtResult.Text = TemplateManager.RenderTemplate(dict);
