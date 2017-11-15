@@ -128,6 +128,7 @@ namespace NFOGenerator_Desktop
                     _driver.FindElement(By.XPath("//*[@id=\"maincolumn\"]/div/div[5]/div/form/table/tbody/tr[10]/td/input[1]")).Click();
                 }
             }
+        }
 
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
