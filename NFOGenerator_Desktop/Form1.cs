@@ -16,10 +16,14 @@ namespace NFOGenerator_Desktop
     public partial class Form1 : Form
     {
         private string _gameGenre;
+        private IWebDriver _driver;
 
         public Form1()
         {
             InitializeComponent();
+            _driver = new ChromeDriver();
+
+            FormClosing += Form1_Closing;
         }
 
         private void btnGetData_Click(object sender, EventArgs e)
@@ -74,6 +78,11 @@ namespace NFOGenerator_Desktop
                 };
 
                 txtResult.Text = TemplateManager.RenderTemplate(dict);
+
+                if (!string.IsNullOrWhiteSpace(txtResult.Text))
+                {
+                    launchToFL.Enabled = true;
+                }
             }
             catch (TemplateException templEx)
             {
@@ -86,142 +95,42 @@ namespace NFOGenerator_Desktop
             }
         }
 
-        private void txtNfo_TextChanged(object sender, EventArgs e)
-        {
-            string text = txtNfo.Text;
-
-            txtNfoResult.Text = text.RemoveNonAscii().Trim();
-        }
-
-        private void musicBtn_Click(object sender, EventArgs e)
-        {
-            txtResult.Text = MusicManager.Load();
-        }
-
-        private void dgvFolders_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            DgvModel data = dgvFolders?.CurrentRow.DataBoundItem as DgvModel;
-            if (data != null)
-            {
-                string items = MusicManager.Load(data.Path);
-                LoadData(items, data.Path);
-            }
-        }
-
-        private void LoadData(string items, string prevPath)
-        {
-            dgvFolders.DataBindings.Clear();
-
-            if (!string.IsNullOrWhiteSpace(items))
-            {
-                dgvFolders.DataSource = ToModel(items, prevPath);
-            }
-        }
-
-        private void btnDownload_Click(object sender, EventArgs e)
-        {
-            var selectedRows = dgvFolders.SelectedRows;
-            if (selectedRows.Count > 0)
-            {
-                foreach (DataGridViewRow row in selectedRows)
-                {
-                    DgvModel data = row.DataBoundItem as DgvModel;
-                    const string extension = "nfo";
-
-                    if (data != null)
-                    {
-                        string items = MusicManager.Load(data.Path);
-                        if (!string.IsNullOrWhiteSpace(items))
-                        {
-                            List<DgvModel> modelList = ToModel(items, data.Path);
-                            foreach (DgvModel model in modelList)
-                            {
-                                if (Path.GetExtension(model.Path).TrimStart('.').Equals(extension, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    MusicManager.DownloadFile(model.Path, @"C:\Users\mteodorescu\Downloads\pics\");
-                                }
-
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void radioDisplayMusicData_CheckedChanged(object sender, EventArgs e)
-        {
-            string items = MusicManager.Load();
-            LoadData(items, string.Empty);
-        }
-
-        private List<DgvModel> ToModel(string items, string prevPath)
-        {
-            List<DgvModel> model = new List<DgvModel>();
-
-            string[] split = items.Split(new char[] { '\r', '\n' });
-            foreach (string item in split)
-            {
-                if (string.IsNullOrWhiteSpace(item))
-                {
-                    continue;
-                }
-
-                model.Add(new DgvModel { Path = prevPath.TrimEnd('/') + "/" + item, Title = item });
-            }
-
-            return model;
-        }
-
-        /// <summary>
-        /// select once time the cell
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dgvFolders_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            dgvFolders.Rows[e.RowIndex].Selected = true;
-        }
-
-        private void dgvFolders_SelectionChanged(object sender, EventArgs e)
-        {
-            DataGridViewSelectedCellCollection cells = dgvFolders.SelectedCells;
-            foreach (DataGridViewCell cell in cells)
-            {
-                dgvFolders.Rows[cell.RowIndex].Selected = true;
-            }
-        }
-
         private void launchToFL_Click(object sender, EventArgs e)
         {
-            using(OpenFileDialog dialog = new OpenFileDialog())
+            using (OpenFileDialog dialog = new OpenFileDialog())
             {
                 dialog.Filter = "torrent files (*.torrent)|*.torrent";
                 dialog.RestoreDirectory = true;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    using (IWebDriver driver = new ChromeDriver())
-                    {
-                        string user = ConfigurationManager.AppSettings["flUser"];
+                    string user = ConfigurationManager.AppSettings["flUser"];
 
-                        driver.Navigate().GoToUrl("https://filelist.ro/login.php");
-                        driver.FindElement(By.Id("username")).SendKeys(user);
+                    _driver.Navigate().GoToUrl("https://filelist.ro/login.php");
+                    _driver.FindElement(By.Id("username")).SendKeys(user);
 
-                        string password = Crypto.DecryptStringAES(ConfigurationManager.AppSettings["flPassword"], ConfigurationManager.AppSettings["encryptPassword"]);
-                        driver.FindElement(By.Id("password")).SendKeys(password);
-                        driver.FindElement(By.Id("password")).SendKeys(OpenQA.Selenium.Keys.Enter);
+                    string password = Crypto.DecryptStringAES(ConfigurationManager.AppSettings["flPassword"], ConfigurationManager.AppSettings["encryptPassword"]);
+                    _driver.FindElement(By.Id("password")).SendKeys(password);
+                    _driver.FindElement(By.Id("password")).SendKeys(OpenQA.Selenium.Keys.Enter);
 
-                        driver.Navigate().GoToUrl("https://filelist.ro/upload.php");
-                        driver.FindElement(By.Name("file")).SendKeys(dialog.FileName);
-                        driver.FindElement(By.Name("name")).SendKeys(Path.GetFileName(dialog.FileName));
-                        driver.FindElement(By.Name("type")).SendKeys("Jocuri PC");
-                        driver.FindElement(By.Name("description")).SendKeys(_gameGenre);
-                        driver.FindElement(By.Name("descr")).SendKeys(txtResult.Text);
+                    _driver.Navigate().GoToUrl("https://filelist.ro/upload.php");
+                    _driver.FindElement(By.Name("file")).SendKeys(dialog.FileName);
+                    _driver.FindElement(By.Name("name")).SendKeys(Path.GetFileName(dialog.FileName));
+                    _driver.FindElement(By.Name("type")).SendKeys("Jocuri PC");
+                    _driver.FindElement(By.Name("description")).SendKeys(_gameGenre);
+                    _driver.FindElement(By.Name("descr")).SendKeys(txtResult.Text);
 
-                        driver.FindElement(By.Name("epenis")).SendKeys(user);
-                        //driver.FindElement(By.Name("epenis")).SendKeys(OpenQA.Selenium.Keys.Enter);
-                    }
+                    _driver.FindElement(By.Name("epenis")).SendKeys(user);
+                    _driver.FindElement(By.Name("epenis")).SendKeys(OpenQA.Selenium.Keys.Enter);
                 }
+            }
+        }
+
+        private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(_driver != null)
+            {
+                _driver.Dispose();
             }
         }
     }
