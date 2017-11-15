@@ -125,10 +125,9 @@ namespace NFOGenerator_Desktop
                     _driver.FindElement(By.Name("descr")).SendKeys(txtResult.Text);
 
                     _driver.FindElement(By.Name("epenis")).SendKeys(user);
-                    //_driver.FindElement(By.Name("epenis")).SendKeys(OpenQA.Selenium.Keys.Enter);
+                    _driver.FindElement(By.XPath("//*[@id=\"maincolumn\"]/div/div[5]/div/form/table/tbody/tr[10]/td/input[1]")).Click();
                 }
             }
-        }
 
         private void Form1_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

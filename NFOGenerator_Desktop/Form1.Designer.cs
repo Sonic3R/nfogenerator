@@ -33,8 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnGetData = new System.Windows.Forms.Button();
             this.txtResult = new System.Windows.Forms.TextBox();
-            this.dgvModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.launchToFL = new System.Windows.Forms.Button();
+            this.dgvModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,10 +77,6 @@
             this.txtResult.Size = new System.Drawing.Size(803, 584);
             this.txtResult.TabIndex = 3;
             // 
-            // dgvModelBindingSource
-            // 
-            this.dgvModelBindingSource.DataSource = typeof(NFOGenerator_Desktop.DgvModel);
-            // 
             // launchToFL
             // 
             this.launchToFL.Enabled = false;
@@ -91,6 +87,10 @@
             this.launchToFL.Text = "Launch to FL";
             this.launchToFL.UseVisualStyleBackColor = true;
             this.launchToFL.Click += new System.EventHandler(this.launchToFL_Click);
+            // 
+            // dgvModelBindingSource
+            // 
+            this.dgvModelBindingSource.DataSource = typeof(NFOGenerator_Desktop.DgvModel);
             // 
             // Form1
             // 
