@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Linq;
-using System.Threading;
 using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -16,6 +15,8 @@ namespace NFOGenerator_Desktop
 {
     public partial class Form1 : Form
     {
+        private string _gameGenre;
+
         public Form1()
         {
             InitializeComponent();
@@ -56,11 +57,15 @@ namespace NFOGenerator_Desktop
                     video = $"[video={video}]";
                 }
 
+                _gameGenre = string.Join(", ", model.Data.Genres.Select(g => g.Description));
+
                 IDictionary<string, string> dict = new Dictionary<string, string>
                 {
                     { "poster", $"[img={model.Data.Header_image.WithoutQueryString()}]" },
                     { "title", $"[size=4]{model.Data.Name}[/size]" },
-                    { "genre", $"[size=2]Genre: [color=orange]{string.Join(", ", model.Data.Genres.Select(g=>g.Description))}[/color][/size]"},
+                    { "genre", string.IsNullOrWhiteSpace(_gameGenre) ? 
+                        string.Empty : 
+                        $"[size=2]Genre: [color=orange]{string.Join(", ", model.Data.Genres.Select(g=>g.Description))}[/color][/size]"},
                     { "description", model.Data.Short_description.ToBbcode() },
                     { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
                     { "screenshots", screens },
@@ -186,16 +191,37 @@ namespace NFOGenerator_Desktop
             }
         }
 
-        private void testIt_Click(object sender, EventArgs e)
+        private void launchToFL_Click(object sender, EventArgs e)
         {
-            using (IWebDriver driver = new ChromeDriver())
+            using(OpenFileDialog dialog = new OpenFileDialog())
             {
-                driver.Navigate().GoToUrl("https://filelist.ro/login.php");
-                driver.FindElement(By.Id("username")).SendKeys("Megatron4FL");
+                dialog.Filter = "torrent files (*.torrent)|*.torrent";
+                dialog.RestoreDirectory = true;
 
-                string password = Crypto.DecryptStringAES(ConfigurationManager.AppSettings["flPassword"], ConfigurationManager.AppSettings["encryptPassword"]);
-                driver.FindElement(By.Id("password")).SendKeys(password);
-                driver.FindElement(By.Id("password")).SendKeys(OpenQA.Selenium.Keys.Enter);
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    using (IWebDriver driver = new ChromeDriver())
+                    {
+                        string user = ConfigurationManager.AppSettings["flUser"];
+
+                        driver.Navigate().GoToUrl("https://filelist.ro/login.php");
+                        driver.FindElement(By.Id("username")).SendKeys(user);
+
+                        string password = Crypto.DecryptStringAES(ConfigurationManager.AppSettings["flPassword"], ConfigurationManager.AppSettings["encryptPassword"]);
+                        driver.FindElement(By.Id("password")).SendKeys(password);
+                        driver.FindElement(By.Id("password")).SendKeys(OpenQA.Selenium.Keys.Enter);
+
+                        driver.Navigate().GoToUrl("https://filelist.ro/upload.php");
+                        driver.FindElement(By.Name("file")).SendKeys(dialog.FileName);
+                        driver.FindElement(By.Name("name")).SendKeys(Path.GetFileName(dialog.FileName));
+                        driver.FindElement(By.Name("type")).SendKeys("Jocuri PC");
+                        driver.FindElement(By.Name("description")).SendKeys(_gameGenre);
+                        driver.FindElement(By.Name("descr")).SendKeys(txtResult.Text);
+
+                        driver.FindElement(By.Name("epenis")).SendKeys(user);
+                        //driver.FindElement(By.Name("epenis")).SendKeys(OpenQA.Selenium.Keys.Enter);
+                    }
+                }
             }
         }
     }

@@ -40,11 +40,11 @@
             this.radioDisplayMusicData = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvFolders = new System.Windows.Forms.DataGridView();
-            this.btnDownload = new System.Windows.Forms.Button();
-            this.testIt = new System.Windows.Forms.Button();
             this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btnDownload = new System.Windows.Forms.Button();
+            this.launchToFL = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -176,27 +176,6 @@
             this.dgvFolders.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFolders_CellContentClick);
             this.dgvFolders.SelectionChanged += new System.EventHandler(this.dgvFolders_SelectionChanged);
             // 
-            // btnDownload
-            // 
-            this.btnDownload.Location = new System.Drawing.Point(1255, 661);
-            this.btnDownload.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(511, 57);
-            this.btnDownload.TabIndex = 13;
-            this.btnDownload.Text = "Download nfo from selected folder";
-            this.btnDownload.UseVisualStyleBackColor = true;
-            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
-            // 
-            // testIt
-            // 
-            this.testIt.Location = new System.Drawing.Point(286, 674);
-            this.testIt.Name = "testIt";
-            this.testIt.Size = new System.Drawing.Size(120, 44);
-            this.testIt.TabIndex = 14;
-            this.testIt.Text = "Launch to FL";
-            this.testIt.UseVisualStyleBackColor = true;
-            this.testIt.Click += new System.EventHandler(this.testIt_Click);
-            // 
             // pathDataGridViewTextBoxColumn
             // 
             this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
@@ -217,12 +196,33 @@
             // 
             this.dgvModelBindingSource.DataSource = typeof(NFOGenerator_Desktop.DgvModel);
             // 
+            // btnDownload
+            // 
+            this.btnDownload.Location = new System.Drawing.Point(1255, 661);
+            this.btnDownload.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(511, 57);
+            this.btnDownload.TabIndex = 13;
+            this.btnDownload.Text = "Download nfo from selected folder";
+            this.btnDownload.UseVisualStyleBackColor = true;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            // 
+            // launchToFL
+            // 
+            this.launchToFL.Location = new System.Drawing.Point(286, 674);
+            this.launchToFL.Name = "launchToFL";
+            this.launchToFL.Size = new System.Drawing.Size(120, 44);
+            this.launchToFL.TabIndex = 14;
+            this.launchToFL.Text = "Launch to FL";
+            this.launchToFL.UseVisualStyleBackColor = true;
+            this.launchToFL.Click += new System.EventHandler(this.launchToFL_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1781, 729);
-            this.Controls.Add(this.testIt);
+            this.Controls.Add(this.launchToFL);
             this.Controls.Add(this.btnDownload);
             this.Controls.Add(this.dgvFolders);
             this.Controls.Add(this.label2);
@@ -262,7 +262,7 @@
         private System.Windows.Forms.Button btnDownload;
         private System.Windows.Forms.DataGridViewTextBoxColumn pathDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn titleDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button testIt;
+        private System.Windows.Forms.Button launchToFL;
     }
 }
 
