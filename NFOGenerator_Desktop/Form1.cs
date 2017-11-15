@@ -97,6 +97,10 @@ namespace NFOGenerator_Desktop
 
         private void launchToFL_Click(object sender, EventArgs e)
         {
+            launchToFL.Enabled = false;
+            txtSteamUrl.Text = string.Empty;
+            txtResult.Text = string.Empty;
+
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
                 dialog.Filter = "torrent files (*.torrent)|*.torrent";
