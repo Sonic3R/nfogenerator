@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
+using System.Configuration;
+using System.Text;
+using Services.Music;
 
 namespace NFOGenerator_Desktop
 {
@@ -58,10 +61,16 @@ namespace NFOGenerator_Desktop
                             {
                                 if (Path.GetExtension(model.Path).TrimStart('.').Equals(extension, StringComparison.OrdinalIgnoreCase))
                                 {
-                                    MusicManager.DownloadFile(model.Path, @"C:\Users\mteodorescu\Downloads\pics\");
-                                }
+                                    MusicManager.DownloadFile(model.Path, ConfigurationManager.AppSettings["downloadMusicNfoPath"]);
 
+                                    if (model.Title.ToLower().Contains("mms"))
+                                    {
+                                        break;
+                                    }
+                                }
                             }
+
+                            btnGenerateNfo.Enabled = true;
                         }
                     }
                 }
@@ -104,6 +113,90 @@ namespace NFOGenerator_Desktop
             foreach (DataGridViewCell cell in cells)
             {
                 dgvFolders.Rows[cell.RowIndex].Selected = true;
+            }
+        }
+
+        private void btnGenerateNfo_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Filter = "nfo files (*.nfo)|*.nfo";
+                dialog.RestoreDirectory = true;
+                dialog.Multiselect = true;
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var files = dialog.FileNames;
+                    var sb = new StringBuilder();
+                    sb.AppendLine("[center]");
+
+                    foreach (var file in files)
+                    {
+                        string scene = FileParser.GetScene(file);
+                        FileParser parser = null;
+
+                        switch (scene)
+                        {
+                            case "talion":
+                                parser = new TalionParser(file);
+                                break;
+
+                            case "mms":
+                                parser = new MmsParser(file);
+                                break;
+
+                            case "dh":
+                                parser = new DhParser(file);
+                                break;
+
+                            case "fast4u":
+                                parser = new Fast4UParser(file);
+                                break;
+
+                            case "enslave":
+                                parser = new EnslaveParser(file);
+                                break;
+
+                            case "sfh":
+                                parser = new SfhParser(file);
+                                break;
+
+                            case "zzzz":
+                                parser = new ZzzzParser(file);
+                                break;
+
+                            case "bb8":
+                                parser = new Bb8Parser(file);
+                                break;
+
+                            default:
+                                parser = new DefaultParser(file);
+                                break;
+                        }
+
+                        if (parser == null)
+                        {
+                            continue;
+                        }
+
+                        parser.LoadData();
+
+                        IDictionary<string, string> dict = new Dictionary<string, string>
+                            {
+                                { "title", $"[size=5]{parser.Title }[/size]" },
+                                { "artist", $"[size=4]{parser.Artist}[/size]" },
+                                { "genre", $"Genre: {parser.Genre}" },
+                                { "quality", $"Quality: {parser.Quality}" },
+                                { "length", $"Duration: {parser.Length }" },
+                                { "tracklist", $"TrackList:\r\n{string.Join("\r\n", parser.TrackList) }" }
+                            };
+
+                        sb.AppendLine(TemplateManager.RenderTemplate(dict, ETemplateType.MUSIC));
+                    }
+
+                    sb.AppendLine("[/center]");
+                    txtMusicNfo.Text = sb.ToString();
+                }
             }
         }
     }

@@ -8,11 +8,12 @@ namespace Services
 {
     public static class TemplateManager
     {
-        private static string TEMPLATE_URL = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), "templates/game_nfo.txt");
+        private static string GAME_TEMPLATE_URL = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), "templates/game_nfo.txt");
+        private static string MUSIC_TEMPLATE_URL = Path.Combine(Path.GetDirectoryName(Assembly.GetCallingAssembly().Location), "templates/music_nfo.txt");
 
-        public static string RenderTemplate(IDictionary<string, string> nfoParams)
+        public static string RenderTemplate(IDictionary<string, string> nfoParams, ETemplateType templateType)
         {
-            string templateData = ReadTemplate();
+            string templateData = templateType == ETemplateType.GAME ? ReadGameTemplate() : ReadMusicTemplate();
             Validate(templateData, nfoParams);
 
             string result = templateData;
@@ -25,9 +26,14 @@ namespace Services
             return result;
         }
 
-        private static string ReadTemplate()
+        private static string ReadGameTemplate()
         {
-            return File.ReadAllText(TEMPLATE_URL);
+            return File.ReadAllText(GAME_TEMPLATE_URL);
+        }
+
+        private static string ReadMusicTemplate()
+        {
+            return File.ReadAllText(MUSIC_TEMPLATE_URL);
         }
 
         private static void Validate(string text, IDictionary<string, string> providedParams)

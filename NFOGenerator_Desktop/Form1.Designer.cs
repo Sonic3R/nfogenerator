@@ -94,12 +94,14 @@
             // 
             // btnGenerateNfo
             // 
+            this.btnGenerateNfo.Enabled = false;
             this.btnGenerateNfo.Location = new System.Drawing.Point(333, 659);
             this.btnGenerateNfo.Name = "btnGenerateNfo";
             this.btnGenerateNfo.Size = new System.Drawing.Size(211, 57);
             this.btnGenerateNfo.TabIndex = 14;
             this.btnGenerateNfo.Text = "Generate nfo for music";
             this.btnGenerateNfo.UseVisualStyleBackColor = true;
+            this.btnGenerateNfo.Click += new System.EventHandler(this.btnGenerateNfo_Click);
             // 
             // txtMusicNfo
             // 
