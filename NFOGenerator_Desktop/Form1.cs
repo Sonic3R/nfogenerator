@@ -99,7 +99,6 @@ namespace NFOGenerator_Desktop
         {
             launchToFL.Enabled = false;
             txtSteamUrl.Text = string.Empty;
-            txtResult.Text = string.Empty;
 
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
@@ -126,6 +125,8 @@ namespace NFOGenerator_Desktop
 
                     _driver.FindElement(By.Name("epenis")).SendKeys(user);
                     _driver.FindElement(By.XPath("//*[@id=\"maincolumn\"]/div/div[5]/div/form/table/tbody/tr[10]/td/input[1]")).Click();
+
+                    txtResult.Text = string.Empty;
                 }
             }
         }

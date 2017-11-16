@@ -72,7 +72,6 @@
             this.txtResult.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtResult.Multiline = true;
             this.txtResult.Name = "txtResult";
-            this.txtResult.ReadOnly = true;
             this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.txtResult.Size = new System.Drawing.Size(803, 584);
             this.txtResult.TabIndex = 3;
