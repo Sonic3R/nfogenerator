@@ -59,6 +59,7 @@
     <Compile Include="MovieManager.cs" />
     <Compile Include="MusicManager.cs" />
     <Compile Include="Music\Bb8Parser.cs" />
+    <Compile Include="Music\CueParser.cs" />
     <Compile Include="Music\DefaultParser.cs" />
     <Compile Include="Music\DhParser.cs" />
     <Compile Include="Music\EbmParser.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Music\Fast4UParser.cs" />
     <Compile Include="Music\FileParser.cs" />
     <Compile Include="Music\MmsParser.cs" />
+    <Compile Include="Music\R35Parser.cs" />
     <Compile Include="Music\SfhParser.cs" />
     <Compile Include="Music\TalionParser.cs" />
     <Compile Include="Music\ZzzzParser.cs" />

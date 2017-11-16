@@ -30,12 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvFolders = new System.Windows.Forms.DataGridView();
-            this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgvModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnDownload = new System.Windows.Forms.Button();
             this.btnGenerateNfo = new System.Windows.Forms.Button();
             this.txtMusicNfo = new System.Windows.Forms.TextBox();
+            this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.titleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFolders)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModelBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +61,37 @@
             this.dgvFolders.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFolders_CellContentClick);
             this.dgvFolders.SelectionChanged += new System.EventHandler(this.dgvFolders_SelectionChanged);
             // 
+            // btnDownload
+            // 
+            this.btnDownload.Location = new System.Drawing.Point(29, 659);
+            this.btnDownload.Margin = new System.Windows.Forms.Padding(4);
+            this.btnDownload.Name = "btnDownload";
+            this.btnDownload.Size = new System.Drawing.Size(280, 57);
+            this.btnDownload.TabIndex = 13;
+            this.btnDownload.Text = "Download nfo from selected folder";
+            this.btnDownload.UseVisualStyleBackColor = true;
+            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
+            // 
+            // btnGenerateNfo
+            // 
+            this.btnGenerateNfo.Location = new System.Drawing.Point(333, 659);
+            this.btnGenerateNfo.Name = "btnGenerateNfo";
+            this.btnGenerateNfo.Size = new System.Drawing.Size(211, 57);
+            this.btnGenerateNfo.TabIndex = 14;
+            this.btnGenerateNfo.Text = "Generate nfo for music";
+            this.btnGenerateNfo.UseVisualStyleBackColor = true;
+            this.btnGenerateNfo.Click += new System.EventHandler(this.btnGenerateNfo_Click);
+            // 
+            // txtMusicNfo
+            // 
+            this.txtMusicNfo.Location = new System.Drawing.Point(602, 47);
+            this.txtMusicNfo.Multiline = true;
+            this.txtMusicNfo.Name = "txtMusicNfo";
+            this.txtMusicNfo.ReadOnly = true;
+            this.txtMusicNfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtMusicNfo.Size = new System.Drawing.Size(677, 606);
+            this.txtMusicNfo.TabIndex = 15;
+            // 
             // pathDataGridViewTextBoxColumn
             // 
             this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
@@ -80,37 +111,6 @@
             // dgvModelBindingSource
             // 
             this.dgvModelBindingSource.DataSource = typeof(NFOGenerator_Desktop.DgvModel);
-            // 
-            // btnDownload
-            // 
-            this.btnDownload.Location = new System.Drawing.Point(29, 659);
-            this.btnDownload.Margin = new System.Windows.Forms.Padding(4);
-            this.btnDownload.Name = "btnDownload";
-            this.btnDownload.Size = new System.Drawing.Size(280, 57);
-            this.btnDownload.TabIndex = 13;
-            this.btnDownload.Text = "Download nfo from selected folder";
-            this.btnDownload.UseVisualStyleBackColor = true;
-            this.btnDownload.Click += new System.EventHandler(this.btnDownload_Click);
-            // 
-            // btnGenerateNfo
-            // 
-            this.btnGenerateNfo.Enabled = false;
-            this.btnGenerateNfo.Location = new System.Drawing.Point(333, 659);
-            this.btnGenerateNfo.Name = "btnGenerateNfo";
-            this.btnGenerateNfo.Size = new System.Drawing.Size(211, 57);
-            this.btnGenerateNfo.TabIndex = 14;
-            this.btnGenerateNfo.Text = "Generate nfo for music";
-            this.btnGenerateNfo.UseVisualStyleBackColor = true;
-            this.btnGenerateNfo.Click += new System.EventHandler(this.btnGenerateNfo_Click);
-            // 
-            // txtMusicNfo
-            // 
-            this.txtMusicNfo.Location = new System.Drawing.Point(602, 47);
-            this.txtMusicNfo.Multiline = true;
-            this.txtMusicNfo.Name = "txtMusicNfo";
-            this.txtMusicNfo.ReadOnly = true;
-            this.txtMusicNfo.Size = new System.Drawing.Size(677, 606);
-            this.txtMusicNfo.TabIndex = 15;
             // 
             // Form1
             // 

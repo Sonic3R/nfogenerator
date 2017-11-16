@@ -61,12 +61,7 @@ namespace NFOGenerator_Desktop
                             {
                                 if (Path.GetExtension(model.Path).TrimStart('.').Equals(extension, StringComparison.OrdinalIgnoreCase))
                                 {
-                                    MusicManager.DownloadFile(model.Path, ConfigurationManager.AppSettings["downloadMusicNfoPath"]);
-
-                                    if (model.Title.ToLower().Contains("mms"))
-                                    {
-                                        break;
-                                    }
+                                    model.DownloadedAs = MusicManager.DownloadFile(model.Path, ConfigurationManager.AppSettings["downloadMusicNfoPath"]);
                                 }
                             }
 
@@ -169,6 +164,14 @@ namespace NFOGenerator_Desktop
                                 parser = new Bb8Parser(file);
                                 break;
 
+                            case "cue":
+                                parser = new CueParser(file);
+                                break;
+
+                            case "r35":
+                                parser = new R35Parser(file);
+                                break;
+
                             default:
                                 parser = new DefaultParser(file);
                                 break;
@@ -181,14 +184,19 @@ namespace NFOGenerator_Desktop
 
                         parser.LoadData();
 
+                        if (parser.IsEmpty)
+                        {
+                            continue;
+                        }
+
                         IDictionary<string, string> dict = new Dictionary<string, string>
                             {
-                                { "title", $"[size=5]{parser.Title }[/size]" },
-                                { "artist", $"[size=4]{parser.Artist}[/size]" },
-                                { "genre", $"Genre: {parser.Genre}" },
-                                { "quality", $"Quality: {parser.Quality}" },
-                                { "length", $"Duration: {parser.Length }" },
-                                { "tracklist", $"TrackList:\r\n{string.Join("\r\n", parser.TrackList) }" }
+                                { "title", $"[size=5]{parser.Title?.Trim() }[/size]" },
+                                { "artist", $"[size=4]{parser.Artist?.Trim()}[/size]" },
+                                { "genre", $"Genre: {parser.Genre?.Trim()}" },
+                                { "quality", $"Quality: {parser.Quality?.Trim()}" },
+                                { "length", $"Duration: {parser.Length?.Trim() }" },
+                                { "tracklist", parser.TrackList == null ? "" : $"Track list:\r\n{string.Join("\r\n", parser.TrackList) }" }
                             };
 
                         sb.AppendLine(TemplateManager.RenderTemplate(dict, ETemplateType.MUSIC));

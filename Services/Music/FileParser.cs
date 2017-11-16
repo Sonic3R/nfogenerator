@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Linq;
 
 namespace Services.Music
 {
@@ -20,7 +19,9 @@ namespace Services.Music
             { "enslave: (verb)", "enslave" },
             { "SOUNDS FROM HEAVEN PROUDLY PRESENTS", "sfh" },
             { "TEAM ZzZz", "zzzz" },
-            { "bb8", "bb8" }
+            { "bb8", "bb8" },
+            { "cue", "cue" },
+            { "r35", "r35" }
         };
 
         public FileParser(string filePath)
@@ -69,6 +70,13 @@ namespace Services.Music
                 }
             }
         }
+
+        public bool IsEmpty => string.IsNullOrWhiteSpace(Title) &&
+            string.IsNullOrWhiteSpace(Artist) &&
+            string.IsNullOrWhiteSpace(Genre) &&
+            string.IsNullOrWhiteSpace(Length) &&
+            string.IsNullOrWhiteSpace(Quality) &&
+            TrackList == null;
 
         protected abstract Dictionary<string, string> RegexDict { get; }
 
