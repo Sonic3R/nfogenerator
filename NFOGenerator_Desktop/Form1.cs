@@ -1,15 +1,8 @@
 ﻿using Services;
-using Services.Exceptions.Template;
-using Services.Model;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Forms;
-using System.Linq;
 using System.IO;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using System.Configuration;
 
 namespace NFOGenerator_Desktop
 {
@@ -20,82 +13,9 @@ namespace NFOGenerator_Desktop
         public Form1()
         {
             InitializeComponent();
-        }
 
-        private void btnGetData_Click(object sender, EventArgs e)
-        {
-            string steamUrl = txtSteamUrl.Text;
-            if (string.IsNullOrWhiteSpace(steamUrl))
-            {
-                MessageBox.Show("No steam url is provided");
-                return;
-            }
-
-            try
-            {
-                string steamId = SteamManager.GetId(steamUrl);
-                if (string.IsNullOrWhiteSpace(steamId))
-                {
-                    MessageBox.Show("No id found !");
-                    return;
-                }
-
-                SteamModel model = SteamManager.LoadGameById(steamId);
-
-                if (!model.Success)
-                {
-                    MessageBox.Show("No game found on steam");
-                    return;
-                }
-
-                string screens = model.Data.Screenshots?.Length == 0 ? string.Empty :
-                    string.Join(" ", model.Data.Screenshots.Select(s => $"[url={s.Path_full.WithoutQueryString()}][img={s.Path_thumbnail.WithoutQueryString()}][/url]"));
-
-                string video = YoutubeManager.GetVideoByKeyword(model.Data.Name);
-                if (!string.IsNullOrWhiteSpace(video))
-                {
-                    video = $"[video={video}]";
-                }
-
-                _gameGenre = string.Join(", ", model.Data.Genres.Select(g => g.Description));
-
-                IDictionary<string, string> dict = new Dictionary<string, string>
-                {
-                    { "poster", $"[img={model.Data.Header_image.WithoutQueryString()}]" },
-                    { "title", $"[size=4]{model.Data.Name}[/size]" },
-                    { "genre", string.IsNullOrWhiteSpace(_gameGenre) ? 
-                        string.Empty : 
-                        $"[size=2]Genre: [color=orange]{string.Join(", ", model.Data.Genres.Select(g=>g.Description))}[/color][/size]"},
-                    { "description", model.Data.Short_description.ToBbcode() },
-                    { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
-                    { "screenshots", screens },
-                    { "youtube", video },
-                    { "url", $"http://store.steampowered.com/app/{model.Data.Steam_appid}/" }
-                };
-
-                txtResult.Text = TemplateManager.RenderTemplate(dict);
-            }
-            catch (TemplateException templEx)
-            {
-                MessageBox.Show(templEx.Message);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                MessageBox.Show("An error occurred");
-            }
-        }
-
-        private void txtNfo_TextChanged(object sender, EventArgs e)
-        {
-            string text = txtNfo.Text;
-
-            txtNfoResult.Text = text.RemoveNonAscii().Trim();
-        }
-
-        private void musicBtn_Click(object sender, EventArgs e)
-        {
-            txtResult.Text = MusicManager.Load();
+            string items = MusicManager.Load();
+            LoadData(items, string.Empty);
         }
 
         private void dgvFolders_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -145,13 +65,9 @@ namespace NFOGenerator_Desktop
                         }
                     }
                 }
-            }
-        }
 
-        private void radioDisplayMusicData_CheckedChanged(object sender, EventArgs e)
-        {
-            string items = MusicManager.Load();
-            LoadData(items, string.Empty);
+                MessageBox.Show("Download complete !");
+            }
         }
 
         private List<DgvModel> ToModel(string items, string prevPath)
@@ -188,40 +104,6 @@ namespace NFOGenerator_Desktop
             foreach (DataGridViewCell cell in cells)
             {
                 dgvFolders.Rows[cell.RowIndex].Selected = true;
-            }
-        }
-
-        private void launchToFL_Click(object sender, EventArgs e)
-        {
-            using(OpenFileDialog dialog = new OpenFileDialog())
-            {
-                dialog.Filter = "torrent files (*.torrent)|*.torrent";
-                dialog.RestoreDirectory = true;
-
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    using (IWebDriver driver = new ChromeDriver())
-                    {
-                        string user = ConfigurationManager.AppSettings["flUser"];
-
-                        driver.Navigate().GoToUrl("https://filelist.ro/login.php");
-                        driver.FindElement(By.Id("username")).SendKeys(user);
-
-                        string password = Crypto.DecryptStringAES(ConfigurationManager.AppSettings["flPassword"], ConfigurationManager.AppSettings["encryptPassword"]);
-                        driver.FindElement(By.Id("password")).SendKeys(password);
-                        driver.FindElement(By.Id("password")).SendKeys(OpenQA.Selenium.Keys.Enter);
-
-                        driver.Navigate().GoToUrl("https://filelist.ro/upload.php");
-                        driver.FindElement(By.Name("file")).SendKeys(dialog.FileName);
-                        driver.FindElement(By.Name("name")).SendKeys(Path.GetFileName(dialog.FileName));
-                        driver.FindElement(By.Name("type")).SendKeys("Jocuri PC");
-                        driver.FindElement(By.Name("description")).SendKeys(_gameGenre);
-                        driver.FindElement(By.Name("descr")).SendKeys(txtResult.Text);
-
-                        driver.FindElement(By.Name("epenis")).SendKeys(user);
-                        //driver.FindElement(By.Name("epenis")).SendKeys(OpenQA.Selenium.Keys.Enter);
-                    }
-                }
             }
         }
     }
