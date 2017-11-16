@@ -49,7 +49,8 @@ namespace NFOGenerator_Desktop
                 foreach (DataGridViewRow row in selectedRows)
                 {
                     DgvModel data = row.DataBoundItem as DgvModel;
-                    const string extension = "nfo";
+                    const string nfoExt = "nfo";
+                    const string imgExt = "jpg";
 
                     if (data != null)
                     {
@@ -59,7 +60,8 @@ namespace NFOGenerator_Desktop
                             List<DgvModel> modelList = ToModel(items, data.Path);
                             foreach (DgvModel model in modelList)
                             {
-                                if (Path.GetExtension(model.Path).TrimStart('.').Equals(extension, StringComparison.OrdinalIgnoreCase))
+                                if (Path.GetExtension(model.Path).TrimStart('.').Equals(nfoExt, StringComparison.OrdinalIgnoreCase) ||
+                                    Path.GetExtension(model.Path).TrimStart('.').Equals(imgExt, StringComparison.OrdinalIgnoreCase))
                                 {
                                     model.DownloadedAs = MusicManager.DownloadFile(model.Path, ConfigurationManager.AppSettings["downloadMusicNfoPath"]);
                                 }

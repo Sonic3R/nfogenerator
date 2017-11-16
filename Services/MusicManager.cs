@@ -55,7 +55,7 @@ namespace Services
             {
                 responseStream = response.GetResponseStream();
                 string fileToSave = Path.GetFileName(Path.GetDirectoryName(path));
-                fileStream = File.Create($"{downloadLocation.TrimEnd('\\')}\\{fileToSave}.nfo");
+                fileStream = File.Create($"{downloadLocation.TrimEnd('\\')}\\{fileToSave}.{Path.GetExtension(path).TrimStart('.')}");
 
                 if (fileStream != null)
                 {
