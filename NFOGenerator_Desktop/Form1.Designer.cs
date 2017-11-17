@@ -78,7 +78,6 @@
             // 
             // launchToFL
             // 
-            this.launchToFL.Enabled = false;
             this.launchToFL.Location = new System.Drawing.Point(722, 12);
             this.launchToFL.Name = "launchToFL";
             this.launchToFL.Size = new System.Drawing.Size(120, 39);

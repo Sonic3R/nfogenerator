@@ -10,6 +10,8 @@ using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System.Configuration;
+using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace NFOGenerator_Desktop
 {
@@ -69,7 +71,7 @@ namespace NFOGenerator_Desktop
                     { "title", $"[size=4]{model.Data.Name}[/size]" },
                     { "genre", string.IsNullOrWhiteSpace(_gameGenre) ? 
                         string.Empty : 
-                        $"[size=2]Genre: {_gameGenre}"},
+                        $"[size=2]Genre: {_gameGenre}[/size]"},
                     { "description", model.Data.Short_description.ToBbcode() },
                     { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
                     { "screenshots", screens },
@@ -126,6 +128,21 @@ namespace NFOGenerator_Desktop
                     _driver.FindElement(By.Name("epenis")).SendKeys(user);
                     _driver.FindElement(By.XPath("//*[@id=\"maincolumn\"]/div/div[5]/div/form/table/tbody/tr[10]/td/input[1]")).Click();
 
+                    Thread.Sleep(3000);
+
+                    var id = ExtractIdFromUrl(_driver.Url);
+                    if (!string.IsNullOrWhiteSpace(id))
+                    {
+                        _driver.Navigate().GoToUrl("https://filelist.ro/edit.php?id=" + id);
+                        IWebElement checkbox = _driver.FindElement(By.Name("visible"));
+                        if (!checkbox.Selected)
+                        {
+                            checkbox.Click();
+                        }
+
+                        _driver.FindElement(By.XPath("//*[@id=\"btnedit\"]")).Click();
+                    }
+
                     txtResult.Text = string.Empty;
                 }
             }
@@ -137,6 +154,19 @@ namespace NFOGenerator_Desktop
             {
                 _driver.Dispose();
             }
+        }
+
+        private static string ExtractIdFromUrl(string url)
+        {
+            var regex = new Regex(@"http(s)?:\/\/filelist\.ro\/details\.php\?id=(\d+)");
+            var match = regex.Match(url);
+
+            if (match.Success)
+            {
+                return match.Groups[1].Value;
+            }
+
+            return string.Empty;
         }
     }
 }
