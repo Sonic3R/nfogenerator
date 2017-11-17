@@ -170,7 +170,7 @@ namespace NFOGenerator_Desktop
 
             if (match.Success)
             {
-                return match.Groups[1].Value;
+                return match.Groups[2].Value;
             }
 
             return string.Empty;
