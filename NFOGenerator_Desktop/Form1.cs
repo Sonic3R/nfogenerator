@@ -102,49 +102,56 @@ namespace NFOGenerator_Desktop
             launchToFL.Enabled = false;
             txtSteamUrl.Text = string.Empty;
 
-            using (OpenFileDialog dialog = new OpenFileDialog())
-            {
-                dialog.Filter = "torrent files (*.torrent)|*.torrent";
-                dialog.RestoreDirectory = true;
-
-                if (dialog.ShowDialog() == DialogResult.OK)
+            try {
+                using (OpenFileDialog dialog = new OpenFileDialog())
                 {
-                    string user = ConfigurationManager.AppSettings["flUser"];
+                    dialog.Filter = "torrent files (*.torrent)|*.torrent";
+                    dialog.RestoreDirectory = true;
 
-                    _driver.Navigate().GoToUrl("https://filelist.ro/login.php");
-                    _driver.FindElement(By.Id("username")).SendKeys(user);
-
-                    string password = Crypto.DecryptStringAES(ConfigurationManager.AppSettings["flPassword"], ConfigurationManager.AppSettings["encryptPassword"]);
-                    _driver.FindElement(By.Id("password")).SendKeys(password);
-                    _driver.FindElement(By.Id("password")).SendKeys(OpenQA.Selenium.Keys.Enter);
-
-                    _driver.Navigate().GoToUrl("https://filelist.ro/upload.php");
-                    _driver.FindElement(By.Name("file")).SendKeys(dialog.FileName);
-                    _driver.FindElement(By.Name("name")).SendKeys(Path.GetFileName(dialog.FileName));
-                    _driver.FindElement(By.Name("type")).SendKeys("Jocuri PC");
-                    _driver.FindElement(By.Name("description")).SendKeys(_gameGenre);
-                    _driver.FindElement(By.Name("descr")).SendKeys(txtResult.Text);
-
-                    _driver.FindElement(By.Name("epenis")).SendKeys(user);
-                    _driver.FindElement(By.XPath("//*[@id=\"maincolumn\"]/div/div[5]/div/form/table/tbody/tr[10]/td/input[1]")).Click();
-
-                    Thread.Sleep(3000);
-
-                    var id = ExtractIdFromUrl(_driver.Url);
-                    if (!string.IsNullOrWhiteSpace(id))
+                    if (dialog.ShowDialog() == DialogResult.OK)
                     {
-                        _driver.Navigate().GoToUrl("https://filelist.ro/edit.php?id=" + id);
-                        IWebElement checkbox = _driver.FindElement(By.Name("visible"));
-                        if (!checkbox.Selected)
+                        string user = ConfigurationManager.AppSettings["flUser"];
+
+                        _driver.Navigate().GoToUrl("https://filelist.ro/login.php");
+                        _driver.FindElement(By.Id("username")).SendKeys(user);
+
+                        string password = Crypto.DecryptStringAES(ConfigurationManager.AppSettings["flPassword"], ConfigurationManager.AppSettings["encryptPassword"]);
+                        _driver.FindElement(By.Id("password")).SendKeys(password);
+                        _driver.FindElement(By.Id("password")).SendKeys(OpenQA.Selenium.Keys.Enter);
+
+                        _driver.Navigate().GoToUrl("https://filelist.ro/upload.php");
+                        _driver.FindElement(By.Name("file")).SendKeys(dialog.FileName);
+                        _driver.FindElement(By.Name("name")).SendKeys(Path.GetFileName(dialog.FileName));
+                        _driver.FindElement(By.Name("type")).SendKeys("Jocuri PC");
+                        _driver.FindElement(By.Name("description")).SendKeys(_gameGenre);
+                        _driver.FindElement(By.Name("descr")).SendKeys(txtResult.Text);
+
+                        _driver.FindElement(By.Name("epenis")).SendKeys(user);
+                        _driver.FindElement(By.XPath("//*[@id=\"maincolumn\"]/div/div[5]/div/form/table/tbody/tr[10]/td/input[1]")).Click();
+
+                        Thread.Sleep(3000);
+
+                        var id = ExtractIdFromUrl(_driver.Url);
+                        if (!string.IsNullOrWhiteSpace(id))
                         {
-                            checkbox.Click();
+                            _driver.Navigate().GoToUrl("https://filelist.ro/edit.php?id=" + id);
+                            IWebElement checkbox = _driver.FindElement(By.Name("visible"));
+                            if (!checkbox.Selected)
+                            {
+                                checkbox.Click();
+                            }
+
+                            _driver.FindElement(By.XPath("//*[@id=\"btnedit\"]")).Click();
                         }
 
-                        _driver.FindElement(By.XPath("//*[@id=\"btnedit\"]")).Click();
+                        txtResult.Text = string.Empty;
                     }
-
-                    txtResult.Text = string.Empty;
                 }
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                _driver.Dispose();
+                _driver = null;
             }
         }
 
