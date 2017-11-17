@@ -69,7 +69,7 @@ namespace NFOGenerator_Desktop
                     { "title", $"[size=4]{model.Data.Name}[/size]" },
                     { "genre", string.IsNullOrWhiteSpace(_gameGenre) ? 
                         string.Empty : 
-                        $"[size=2]Genre: [color=orange]{string.Join(", ", model.Data.Genres.Select(g=>g.Description))}[/color][/size]"},
+                        $"[size=2]Genre: {_gameGenre}"},
                     { "description", model.Data.Short_description.ToBbcode() },
                     { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
                     { "screenshots", screens },
