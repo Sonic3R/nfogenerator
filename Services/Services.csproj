@@ -58,6 +58,8 @@
     <Compile Include="Model\SteamModel.cs" />
     <Compile Include="MovieManager.cs" />
     <Compile Include="MusicManager.cs" />
+    <Compile Include="Parsers\NfoParser.cs" />
+    <Compile Include="Parsers\SkidrowParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SteamManager.cs" />
     <Compile Include="StringHelper.cs" />

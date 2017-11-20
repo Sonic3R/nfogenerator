@@ -10,6 +10,11 @@
 
 -- pc_requirements
 
+[b]Install notes[/b]
+[quote]
+-- installnotes
+[/quote]
+
 [spoiler]
 -- screenshots
 [/spoiler]

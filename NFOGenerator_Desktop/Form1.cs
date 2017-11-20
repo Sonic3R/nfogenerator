@@ -12,6 +12,7 @@ using OpenQA.Selenium.Chrome;
 using System.Configuration;
 using System.Threading;
 using System.Text.RegularExpressions;
+using Services.Parsers;
 
 namespace NFOGenerator_Desktop
 {
@@ -64,18 +65,32 @@ namespace NFOGenerator_Desktop
                 }
 
                 _gameGenre = string.Join(", ", model.Data.Genres.Select(g => g.Description));
+                string installNotes = null;
+
+                using(OpenFileDialog dialog = new OpenFileDialog())
+                {
+                    dialog.Filter = "nfo file (*.nfo)|*.nfo";
+                    dialog.RestoreDirectory = true;
+
+                    if(dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        NfoParser parser = GetParser(dialog.FileName);
+                        installNotes = parser.GetInstallNote();
+                    }
+                }
 
                 IDictionary<string, string> dict = new Dictionary<string, string>
                 {
                     { "poster", $"[img={model.Data.Header_image.WithoutQueryString()}]" },
                     { "title", $"[size=4]{model.Data.Name}[/size]" },
-                    { "genre", string.IsNullOrWhiteSpace(_gameGenre) ? 
-                        string.Empty : 
+                    { "genre", string.IsNullOrWhiteSpace(_gameGenre) ?
+                        string.Empty :
                         $"[size=2]Genre: {_gameGenre}[/size]"},
                     { "description", model.Data.Short_description.ToBbcode() },
                     { "pc_requirements", model.Data.Pc_requirements.Minimum.ToBbcode() },
                     { "screenshots", screens },
                     { "youtube", video },
+                    { "installnotes", installNotes?.Trim()?.RemoveNonAscii()?.Trim() },
                     { "url", $"http://store.steampowered.com/app/{model.Data.Steam_appid}/" }
                 };
 
@@ -105,7 +120,7 @@ namespace NFOGenerator_Desktop
             try {
                 using (OpenFileDialog dialog = new OpenFileDialog())
                 {
-                    dialog.Filter = "torrent files (*.torrent)|*.torrent";
+                    dialog.Filter = "torrent file (*.torrent)|*.torrent";
                     dialog.RestoreDirectory = true;
 
                     if (dialog.ShowDialog() == DialogResult.OK)
@@ -174,6 +189,18 @@ namespace NFOGenerator_Desktop
             }
 
             return string.Empty;
+        }
+
+        private static NfoParser GetParser(string filename)
+        {
+            string release = Path.GetFileNameWithoutExtension(filename);
+            switch(release.ToLower())
+            {
+                case "skidrow":
+                    return new SkidrowParser(filename);
+            }
+
+            return null;
         }
     }
 }
