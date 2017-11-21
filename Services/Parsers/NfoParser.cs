@@ -21,13 +21,19 @@ namespace Services
 
         protected abstract string RegexInstallNotes { get; }
 
-        public string GetInstallNote()
+        public string InstallNotes => GetInstallNote();
+
+        protected virtual string GetInstallNote()
         {
-            string data = File.ReadAllText(_filename);
+            InfektExecutor exec = new InfektExecutor();
+            string data = GetNfoAsText();
+
             if (string.IsNullOrWhiteSpace(data))
             {
                 return string.Empty;
             }
+
+            data = data.RemoveNonAscii().Trim();
 
             Regex regex = new Regex(RegexInstallNotes);
             MatchCollection matches = regex.Matches(data);
@@ -44,6 +50,12 @@ namespace Services
             }
 
             return string.Empty;
+        }
+
+        protected string GetNfoAsText()
+        {
+            InfektExecutor exec = new InfektExecutor();
+            return exec.ExtractInstallNotes(_filename);
         }
     }
 }

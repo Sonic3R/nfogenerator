@@ -75,7 +75,11 @@ namespace NFOGenerator_Desktop
                     if(dialog.ShowDialog() == DialogResult.OK)
                     {
                         NfoParser parser = GetParser(dialog.FileName);
-                        installNotes = parser.GetInstallNote();
+
+                        if (parser != null)
+                        {
+                            installNotes = parser.InstallNotes;
+                        }
                     }
                 }
 
@@ -198,6 +202,12 @@ namespace NFOGenerator_Desktop
             {
                 case "skidrow":
                     return new SkidrowParser(filename);
+
+                case "codex":
+                    return new CodexParser(filename);
+
+                case "reloaded":
+                    return new ReloadedParser(filename);
             }
 
             return null;
