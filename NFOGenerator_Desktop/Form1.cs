@@ -55,8 +55,12 @@ namespace NFOGenerator_Desktop
                     return;
                 }
 
-                string screens = model.Data.Screenshots?.Length == 0 ? string.Empty :
-                    string.Join(" ", model.Data.Screenshots.Select(s => $"[url={s.Path_full.WithoutQueryString()}][img={s.Path_thumbnail.WithoutQueryString()}][/url]"));
+                string screens = string.Empty;
+                if (model.Data.Screenshots != null && model.Data.Screenshots.Length > 0)
+                {
+                    int take = model.Data.Screenshots.Length < 6 ? model.Data.Screenshots.Length : 6;
+                    screens = string.Join(" ", model.Data.Screenshots.Take(take).Select(s => $"[url={s.Path_full.WithoutQueryString()}][img={s.Path_thumbnail.WithoutQueryString()}][/url]"));
+                }
 
                 string video = YoutubeManager.GetVideoByKeyword(model.Data.Name);
                 if (!string.IsNullOrWhiteSpace(video))

@@ -14,7 +14,7 @@ namespace Services.Parsers
 
         protected override string GetInstallNote()
         {
-            return "- Extract\r\n- Burn or mount the.iso\r\n- Run setup.exe and install\r\n- Copy crack from CODEX dir to installdir\r\n-Play\r\n\r\n\r\nGeneral Notes:\r\n-Block the game's exe in your firewall to prevent the game from trying to go online ..\r\n-If you install games to your systemdrive, it may be necessary to run this game with admin privileges instead";
+            return "- Extract\r\n- Burn or mount the.iso\r\n- Run setup.exe and install\r\n- Copy crack from CODEX dir to installdir\r\n-Play\r\n\r\nGeneral Notes:\r\n-Block the game's exe in your firewall to prevent the game from trying to go online ..\r\n-If you install games to your systemdrive, it may be necessary to run this game with admin privileges instead";
 
             //InfektExecutor exec = new InfektExecutor();
             //string data = GetNfoAsText();
