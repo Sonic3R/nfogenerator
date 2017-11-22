@@ -13,6 +13,7 @@ using System.Configuration;
 using System.Threading;
 using System.Text.RegularExpressions;
 using Services.Parsers;
+using System.Threading.Tasks;
 
 namespace NFOGenerator_Desktop
 {
@@ -25,12 +26,23 @@ namespace NFOGenerator_Desktop
         {
             InitializeComponent();
             _driver = new ChromeDriver();
+            progressBar.MarqueeAnimationSpeed = 30;
+            progressBar.Style = ProgressBarStyle.Blocks;
+            progressBar.Value = 0;
 
             FormClosing += Form1_Closing;
         }
 
         private void btnGetData_Click(object sender, EventArgs e)
         {
+            Task.Run(() =>
+            {
+                progressBar.BeginInvoke(new Action(() =>
+                {
+                    progressBar.Style = ProgressBarStyle.Marquee;
+                }));
+            });
+
             string steamUrl = txtSteamUrl.Text;
             if (string.IsNullOrWhiteSpace(steamUrl))
             {
@@ -168,6 +180,15 @@ namespace NFOGenerator_Desktop
                         }
 
                         txtResult.Text = string.Empty;
+
+                        Task.Run(() =>
+                        {
+                            progressBar.BeginInvoke(new Action(() =>
+                            {
+                                progressBar.Style = ProgressBarStyle.Continuous;
+                                progressBar.Value = 0;
+                            }));
+                        });
                     }
                 }
             } catch(Exception ex)

@@ -35,6 +35,7 @@
             this.txtResult = new System.Windows.Forms.TextBox();
             this.launchToFL = new System.Windows.Forms.Button();
             this.dgvModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dgvModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,11 +91,20 @@
             // 
             this.dgvModelBindingSource.DataSource = typeof(NFOGenerator_Desktop.DgvModel);
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(39, 666);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(803, 51);
+            this.progressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(893, 729);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.launchToFL);
             this.Controls.Add(this.txtResult);
             this.Controls.Add(this.btnGetData);
@@ -117,6 +127,7 @@
         private System.Windows.Forms.TextBox txtResult;
         private System.Windows.Forms.BindingSource dgvModelBindingSource;
         private System.Windows.Forms.Button launchToFL;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 
