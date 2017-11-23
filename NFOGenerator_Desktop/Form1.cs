@@ -233,6 +233,12 @@ namespace NFOGenerator_Desktop
 
                 case "reloaded":
                     return new ReloadedParser(filename);
+
+                case "plaza":
+                    return new PlazaParser(filename);
+
+                case "hi2u":
+                    return new Hi2uParser(filename);
             }
 
             return null;

@@ -65,7 +65,9 @@
     <Compile Include="MovieManager.cs" />
     <Compile Include="MusicManager.cs" />
     <Compile Include="Parsers\CodexParser.cs" />
+    <Compile Include="Parsers\Hi2uParser.cs" />
     <Compile Include="Parsers\NfoParser.cs" />
+    <Compile Include="Parsers\PlazaParser.cs" />
     <Compile Include="Parsers\ReloadedParser.cs" />
     <Compile Include="Parsers\SkidrowParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
