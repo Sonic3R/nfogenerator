@@ -55,6 +55,7 @@
     <Compile Include="Exceptions\Template\MismatchNumberOfParametersException.cs" />
     <Compile Include="Exceptions\Template\ParameterNotFoundException.cs" />
     <Compile Include="Exceptions\Template\TemplateException.cs" />
+    <Compile Include="GogManager.cs" />
     <Compile Include="HtmlAgilityHelper.cs" />
     <Compile Include="InfektExecutor.cs" />
     <Compile Include="Model\GogModel.cs" />
