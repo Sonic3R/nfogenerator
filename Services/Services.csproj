@@ -57,13 +57,8 @@
     <Compile Include="Exceptions\Template\TemplateException.cs" />
     <Compile Include="HtmlAgilityHelper.cs" />
     <Compile Include="InfektExecutor.cs" />
-    <Compile Include="Model\Movie\MovieImageModel.cs" />
-    <Compile Include="Model\Movie\MovieInfoModel.cs" />
-    <Compile Include="Model\MovieModel.cs" />
-    <Compile Include="Model\Movie\MovieVideoModel.cs" />
+    <Compile Include="Model\GogModel.cs" />
     <Compile Include="Model\SteamModel.cs" />
-    <Compile Include="MovieManager.cs" />
-    <Compile Include="MusicManager.cs" />
     <Compile Include="Parsers\CodexParser.cs" />
     <Compile Include="Parsers\DefaultParser.cs" />
     <Compile Include="Parsers\Hi2uParser.cs" />
