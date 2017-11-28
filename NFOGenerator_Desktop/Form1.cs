@@ -241,7 +241,7 @@ namespace NFOGenerator_Desktop
                     return new Hi2uParser(filename);
             }
 
-            return null;
+            return new DefaultParser(filename);
         }
     }
 }
